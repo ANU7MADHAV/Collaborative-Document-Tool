@@ -1,4 +1,4 @@
-import express, { Request, Response } from "express";
+import express from "express";
 import serverConfig from "./config/serverConfig";
 import v1Router from "./routes/v1Routes";
 

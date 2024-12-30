@@ -2,7 +2,6 @@ import { prisma } from "@repo/primsa";
 import express, { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import generateAccessToken from "../../utils/generateToken";
-import { json } from "body-parser";
 
 const userRouter = express.Router();
 

@@ -1,8 +1,5 @@
 import express, { Request, Response } from "express";
-
 import serverConfig from "./config/serverConfig";
-
-import { prisma } from "@repo/primsa";
 import v1Router from "./routes/v1Routes";
 
 const app = express();

@@ -8,9 +8,8 @@
     "dev": "tsc --watch",
     "build": "tsc"
   },
-  "exports" : {
-    "types" : "./src/index.ts",
-    "client" : "./dist/index.js"
+  "exports": {
+    "./client": "./src/index.ts"
   },
   "keywords": [],
   "author": "",

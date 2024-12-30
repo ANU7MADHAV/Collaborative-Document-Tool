@@ -24,7 +24,7 @@ const processQueue = async () => {
 sheetRouter.get("/sheets", async (req: Request, res: Response) => {});
 
 sheetRouter.post("/sheets", async (req: Request, res: Response) => {
-  const message = processQueue();
+  const message = await processQueue();
   console.log("message", message);
 });
 

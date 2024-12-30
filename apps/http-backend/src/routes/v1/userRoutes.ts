@@ -1,9 +1,10 @@
-import { prisma } from "@repo/primsa";
-import express, { Request, Response } from "express";
+import { prismaClient } from "@repo/primsa/client";
 import bcrypt from "bcrypt";
+import express, { Request, Response } from "express";
 import generateAccessToken from "../../utils/generateToken";
 
 const userRouter = express.Router();
+const prisma = prismaClient;
 
 userRouter.post("/signup", async (req: Request, res: Response) => {
   const body = req.body;

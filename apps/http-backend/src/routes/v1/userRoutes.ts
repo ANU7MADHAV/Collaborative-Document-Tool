@@ -1,4 +1,4 @@
-import { prismaClient } from "@repo/primsa/client";
+import { prismaClient } from "@repo/prisma/client";
 import bcrypt from "bcrypt";
 import express, { Request, Response } from "express";
 import generateAccessToken from "../../utils/generateToken";

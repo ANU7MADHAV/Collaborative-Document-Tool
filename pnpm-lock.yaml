@@ -90,7 +90,7 @@ importers:
 
   apps/http-backend:
     dependencies:
-      '@repo/primsa':
+      '@repo/prisma':
         specifier: workspace:*
         version: link:../../packages/prisma
       bcrypt:

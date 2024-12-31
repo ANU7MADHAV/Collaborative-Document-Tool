@@ -4,12 +4,25 @@ import Document from "@tiptap/extension-document";
 import ListItem from "@tiptap/extension-list-item";
 import Paragraph from "@tiptap/extension-paragraph";
 import Text from "@tiptap/extension-text";
-import { EditorContent, useEditor } from "@tiptap/react";
+import { EditorContent, HTMLContent, useEditor } from "@tiptap/react";
+
+export type JSONContent = {
+  type?: string;
+  attrs?: Record<string, any>;
+  content?: JSONContent[];
+  marks?: {
+    type: string;
+    attrs?: Record<string, any>;
+    [key: string]: any;
+  }[];
+  text?: string;
+  [key: string]: any;
+};
+
+export type Content = HTMLContent | JSONContent | JSONContent[] | null;
 
 const TiptapEditor = () => {
-  const [content, setContent] = useState({
-    json: null,
-  });
+  const [content, setContent] = useState<JSONContent>();
 
   const webSocketRef = useRef<WebSocket | null>(null);
 
@@ -17,9 +30,8 @@ const TiptapEditor = () => {
     extensions: [Document, Paragraph, Text, BulletList, ListItem],
     content: "",
     onUpdate: ({ editor }) => {
-      setContent({
-        json: editor.getJSON(),
-      });
+      const json = editor.getJSON();
+      setContent(json);
     },
   });
 
@@ -28,7 +40,7 @@ const TiptapEditor = () => {
   }
 
   useEffect(() => {
-    webSocketRef.current = new WebSocket("");
+    webSocketRef.current = new WebSocket("ws://localhost:8080");
 
     webSocketRef.current.onopen = () => {
       console.log("connection established");
@@ -51,10 +63,10 @@ const TiptapEditor = () => {
   }, []);
 
   useEffect(() => {
-    if (webSocketRef.current?.readyState === 1) {
-      webSocketRef.current.send(JSON.stringify(content));
+    if (webSocketRef.current?.readyState === webSocketRef.current?.OPEN) {
+      webSocketRef.current?.send(JSON.stringify(content));
     }
-  }, []);
+  }, [content]);
 
   const handleToggleBulletList = () => {
     editor.chain().focus().toggleBulletList().run();
